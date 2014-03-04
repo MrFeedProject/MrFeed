@@ -21,14 +21,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-/**
- *
- * <p>Copyright: Copyright (c) 2008</p>
- *
- * @author Francisco José García Izquierdo. Departamento de Matemáticas y
- * Computación. Universidad de La Rioja.
- * @version 1.0
- */
 public class XMLUtils {
 
   /**

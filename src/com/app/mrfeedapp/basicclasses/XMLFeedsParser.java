@@ -1,9 +1,5 @@
 package com.app.mrfeedapp.basicclasses;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +27,7 @@ public class XMLFeedsParser {
 		try{
 			URL url=new URL("http://es.engadget.com/rss.xml");
 			//URL url=new URL(uri);
-			String ficheroSalida=url.getFile();//obtener el nombre del fichero para luego 
+			//String ficheroSalida=url.getFile();//obtener el nombre del fichero para luego 
 			//crear otro que se llame igual donde guardaremos nuestro código
 
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -42,8 +38,8 @@ public class XMLFeedsParser {
 			root.normalize();
 			NodeList hijos = root.getElementsByTagName("item");//lista de nodos hijos
 			
-			File salida1=new File(ficheroSalida.substring(1));//creación del fichero donde guardaremos el código
-			String html="";//String donde guardaremos todos los elementos de los items, separados por "\n"
+			//File salida1=new File(ficheroSalida.substring(1));//creación del fichero donde guardaremos el código
+			//String html="";//String donde guardaremos todos los elementos de los items, separados por "\n"
 			for (int i = 0; i < hijos.getLength(); i++) {
 				Element hijo = (Element) hijos.item(i);//para cada elemento hijo obtenemos el titulo, el link, la descripcion el autor y la fecha si la tiene
 				String title=XMLUtils.getTextTrim((Element) hijo.getElementsByTagName("title").item(0));
@@ -58,15 +54,18 @@ public class XMLFeedsParser {
 					pubDate=new SimpleDateFormat(pattern, Locale.ENGLISH).parse(pubDate1);
 				}
 				//crear el RSSItem
-				RSSNew rs= new RSSNew(title, link, description, author, pubDate);
+				RSSNew rs= new RSSNew(title, link, description, author, pubDate, false);
+				//guardo las noticias en el ArrayList
+				noticias.add(rs);
 				//vamos concatenando en la variable html el resultado del metodo toHTML() de la clase RSSItem.java
-				html=html+rs.toHTML()+"\n";
+				//html=html+rs.toHTML()+"\n";
 				
 			}
 			//leemos el string html y vamos escribiendo su resultado en el fichero que 
 			//habiamos creado con anterioridad (con la codificación adecuada) y que se 
 			//llama como el fichero contenido en la pagina web de la que obtenemos todo 
 			//el contenido
+			/*
 			DataInputStream in1=new DataInputStream(new ByteArrayInputStream(html.getBytes("ISO-8859-1")));
 			FileOutputStream out1=new FileOutputStream(salida1);
 			byte[] buff1 = new byte[10024];
@@ -76,6 +75,7 @@ public class XMLFeedsParser {
 				out1.write(buff1, 0, leidos1);
 				leidos1 = in1.read(buff1);
 			}
+			*/
 			
 		}catch (MalformedURLException e1) {
 			// TODO Auto-generated catch block

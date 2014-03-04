@@ -9,13 +9,17 @@ public class RSSNew {
 	private String lnk;
 	private String aut;
 	private Date dat;
+	private RSSImage img;
+	private boolean star;
 
 	public RSSNew() {
-		this("Untitled", "NoDesc", "noLinked", "NoAuth", new Date());
+		this("Untitled", "NoDesc", "noLinked", null, "NoAuth", null, false);
 	}
-
-	public RSSNew(String title, String description, String link, String author,
-			Date date) {
+	public RSSNew(String title, String description, String link, RSSImage image) {
+		this(title, description, link, image, "NoAuth", null, false);
+	}
+	public RSSNew(String title, String description, String link, RSSImage img, String author,
+			Date date, boolean star) {
 		/**
 		 * Creates a RSS new with "Title", "Description", "Link", "Author",
 		 * "Date"
@@ -25,6 +29,8 @@ public class RSSNew {
 		this.lnk = link;
 		this.aut = author;
 		this.dat = date;
+		this.img = img;
+		this.star = star;
 	}
 
 	public void setTitle(String title) {
@@ -61,12 +67,29 @@ public class RSSNew {
 		 */
 		this.dat = date;
 	}
+	
+	public boolean isStar() {
+		return star;
+	}
 
+	public void setStar(boolean star) {
+		this.star = star;
+	}
+	
+	public void setImg(RSSImage img) {
+		this.img = img;
+	}
+	
+	
 	public String getTitle() {
 		/**
 		 * Returns the RSSnew title
 		 */
 		return tit;
+	}
+
+	public RSSImage getImg() {
+		return img;
 	}
 
 	public String getLink() {

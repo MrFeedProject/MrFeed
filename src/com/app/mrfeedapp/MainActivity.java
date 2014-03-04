@@ -1,8 +1,16 @@
 package com.app.mrfeedapp;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
+
+import com.app.mrfeedapp.basicclasses.RSSNew;
+import com.app.mrfeedapp.basicclasses.XMLFeedsParser;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,10 +24,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
 
+	private LayoutInflater mInflater;
+	private List<RSSNew> data;////////////////////////////////
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -28,7 +43,7 @@ public class MainActivity extends FragmentActivity {
      * intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.Hello
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    //SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -38,18 +53,43 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the app.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+       //ListView list= 
+//        list.
+//        GridLayout general=new GridLayout(this);
+//        for (int i = 0; i < 5; i++) {
+//			new LinearLayout(this);
+//			general.
+//		}
+        setContentView(R.layout.activity_main);  
+        
+        mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        
+        XMLFeedsParser xmlparser=new XMLFeedsParser();
+        data = xmlparser.getNoticias("");//////////////////
+        
+        ListView list= (ListView) findViewById(R.id.listView1);
+        
+        
+        //RSSNew rss;
+//        for (int i = 0; i < data.size(); i++) {
+//        	
+//		}
+        
+        final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, data);
+            list.setAdapter(adapter);
+       
 
     }
+    
+//    public void onListItemClick(ListView parent, View v, int position, long id) {
+//        CustomAdapter adapter = (CustomAdapter) parent.getAdapter();
+//    	RowData row = adapter.getItem(position);		
+//        Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle(row.mItem); 
+//        builder.setMessage(row.mDescription + " -> " + position );
+//        builder.setPositiveButton("ok", null);
+//        builder.show();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,73 +98,156 @@ public class MainActivity extends FragmentActivity {
         return true;
     }
     
+    private class StableArrayAdapter extends ArrayAdapter<RSSNew> {
+
+    	HashMap<RSSNew, Integer> mIdMap = new HashMap<RSSNew, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId,
+            List<RSSNew> objects) {
+          super(context, textViewResourceId, objects);
+          for (int i = 0; i < objects.size(); ++i) {
+            mIdMap.put(objects.get(i), i);
+          }
+        }
+
+        @Override
+        public long getItemId(int position) {
+          RSSNew item = getItem(position);
+          return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+          return true;
+        }
+
+      }
     
+//    	public CustomAdapter(Context context, int resource, int textViewResourceId, List<RSSNew> objects) {
+//    		super(context, resource, textViewResourceId, objects);
+//
+//    	}
+//
+//    	@Override
+//    	public View getView(int position, View convertView, ViewGroup parent) {
+//    		Viewer holder = null;
+//
+//    		//widgets displayed by each item in your list
+//    		TextView item = null;
+//    		TextView description = null;
+//
+//    		//data from your adapter
+//    		RSSNew rssNew= getItem(position);
+//
+//
+//    		//we want to reuse already constructed row views...
+//    		if(null == convertView){
+//    			convertView = mInflater.inflate(R.layout.custom_row, null);
+//    			holder = new Viewer(convertView);
+//    			convertView.setTag(holder);
+//    		}
+//    		// 
+//    		holder = (Viewer) convertView.getTag();
+//    		item = holder.getItem();
+//    		item.setText(rssNew.mItem);
+//
+//    		description = holder.getDescription();		
+//    		description.setText(rssNew.mDescription);
+//
+//    		return convertView;
+//    	}
+ //   }
+    
+//    private class Viewer {      
+//        private View mRow;
+//        private TextView description = null;
+//        private TextView item = null;
+//
+//    	public Viewer(View row) {
+//        	mRow = row;
+//    	}
+//
+//    	public TextView getDescription() {
+//    		if(null == description){
+//    			description = (TextView) mRow.findViewById(R.id.description);
+//    		}
+//    		return description;
+//    	}
+//
+//    	public TextView getItem() {
+//    		if(null == item){
+//    			item = (TextView) mRow.findViewById(R.id.item);
+//    		}
+//    		return item;
+//    	}    	
+//    }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a DummySectionFragment (defined as a static inner class
-            // below) with the page number as its lone argument.
-            Fragment fragment = new DummySectionFragment();
-            Bundle args = new Bundle();
-            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
-            }
-            return null;
-        }
-    }
-
-    /**
-     * A dummy fragment representing a section of the app, but that simply
-     * displays dummy text.
-     */
-    public static class DummySectionFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        public DummySectionFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_dummy, container, false);
-            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
-            dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
+//    /**
+//     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+//     * one of the sections/tabs/pages.
+//     */
+//    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+//
+//        public SectionsPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            // getItem is called to instantiate the fragment for the given page.
+//            // Return a DummySectionFragment (defined as a static inner class
+//            // below) with the page number as its lone argument.
+//            Fragment fragment = new DummySectionFragment();
+//            Bundle args = new Bundle();
+//            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+//            fragment.setArguments(args);
+//            return fragment;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            // Show 3 total pages.
+//            return 3;
+//        }
+//
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            Locale l = Locale.getDefault();
+//            switch (position) {
+//                case 0:
+//                    return getString(R.string.title_section1).toUpperCase(l);
+//                case 1:
+//                    return getString(R.string.title_section2).toUpperCase(l);
+//                case 2:
+//                    return getString(R.string.title_section3).toUpperCase(l);
+//            }
+//            return null;
+//        }
+//    }
+//
+//    /**
+//     * A dummy fragment representing a section of the app, but that simply
+//     * displays dummy text.
+//     */
+//    public static class DummySectionFragment extends Fragment {
+//        /**
+//         * The fragment argument representing the section number for this
+//         * fragment.
+//         */
+//        public static final String ARG_SECTION_NUMBER = "section_number";
+//
+//        public DummySectionFragment() {
+//        }
+//
+//        @Override
+//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                Bundle savedInstanceState) {
+//            View rootView = inflater.inflate(R.layout.fragment_main_dummy, container, false);
+//            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
+//            dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+//            return rootView;
+//        }
+//    }
 
 }

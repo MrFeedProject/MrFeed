@@ -1,4 +1,4 @@
-package com.app.mrfeedapp.basicclasses;
+package clases;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,6 +17,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
@@ -26,14 +27,16 @@ public class XMLFeedsParser {
 		List<RSSNew> noticias = new ArrayList<RSSNew>();
 		
 		try{
-			URL url=new URL("http://es.engadget.com/rss.xml");
+			//URL url=new URL("http://es.engadget.com/rss.xml");
+			URL url = new URL("http://www.bbc.co.uk/mundo/ultimas_noticias/index.xml");
 			//URL url=new URL(uri);
 			//String ficheroSalida=url.getFile();//obtener el nombre del fichero para luego 
 			//crear otro que se llame igual donde guardaremos nuestro código
 
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(url.openStream());
+			System.out.println(url.toString());
+			Document doc = db.parse(new InputSource(url.openStream()));
 			
 			Element root = doc.getDocumentElement();//obtener el elemento raiz
 			root.normalize();

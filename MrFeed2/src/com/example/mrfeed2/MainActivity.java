@@ -80,7 +80,9 @@ public class MainActivity extends FragmentActivity {
         rssa = new RSSNew("Títuloddd", "Noticia blublublu ble ble bldddddde", "www.link.com", null);
         data.add(rss);
         data.add(rssa);
+        
         ListView list= (ListView) findViewById(R.id.listView1);
+   
        
         ArrayList<String> lista = new ArrayList<String>();
         lista.add(rss.getTitle());
@@ -91,7 +93,7 @@ public class MainActivity extends FragmentActivity {
 //        	
 //		}
         
-        final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, data);
+        final ArrayAdapter<RSSNew> adapter = new ArrayAdapter<RSSNew>(this, android.R.layout.simple_list_item_1, data);
         list.setAdapter(adapter);
        
 
@@ -114,28 +116,56 @@ public class MainActivity extends FragmentActivity {
         return true;
     }
     
-    private class StableArrayAdapter extends ArrayAdapter<RSSNew> {
+    private class MyArrayAdapter extends ArrayAdapter<RSSNew> {
+    	
+    	private Context context;
 
     	HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
-        public StableArrayAdapter(Context context, int textViewResourceId,
-            List<RSSNew> objects) {
-          super(context, textViewResourceId, objects);
-          for (int i = 0; i < objects.size(); ++i) {
-            mIdMap.put(objects.get(i).getTitle(), i);
-          }
+        public MyArrayAdapter(Context context, int textViewResourceId,
+            ArrayList<RSSNew> items) {
+          super(context, textViewResourceId, items);
+          this.context = context;
+//          for (int i = 0; i < items.size(); ++i) {
+//            mIdMap.put(items.get(i), i);
+//          }
+        }
+        
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = convertView;
+            if (view == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                view = inflater.inflate(android.R.layout.simple_list_item_1, null);
+            }
+
+            RSSNew item = getItem(position);
+            if (item!= null) {
+                // My layout has only one TextView
+                ListView listView = (ListView) view.findViewById(R.id.listView1);
+                
+                //listView.
+                TextView itemView = new TextView(context);
+                
+                if (itemView != null) {
+                    // do whatever you want with your string and long
+                    itemView.setText(String.format("%s %s", "Mis huevos", item.getDescription()));
+                }
+             }
+         
+            return view;
         }
 
-        @Override
-        public long getItemId(int position) {
-        	String item = getItem(position).getTitle();
-          return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-          return true;
-        }
+//        @Override
+//        public long getItemId(int position) {
+//        	String item = getItem(position);
+//          return mIdMap.get(item);
+//          //return mIdMap.get(position);
+//        }
+//
+//        @Override
+//        public boolean hasStableIds() {
+//          return true;
+//        }
 
       }
     

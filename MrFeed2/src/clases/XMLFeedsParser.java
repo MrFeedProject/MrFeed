@@ -23,12 +23,12 @@ import org.xml.sax.SAXException;
 
 public class XMLFeedsParser {
 	
-	public List<RSSNew> getNoticias(String uri){
-		List<RSSNew> noticias = new ArrayList<RSSNew>();
+	public ArrayList<RSSNew> getNoticias(String uri){
+		ArrayList<RSSNew> noticias = new ArrayList<RSSNew>();
 		
 		try{
-			//URL url=new URL("http://es.engadget.com/rss.xml");
-			URL url = new URL("http://www.bbc.co.uk/mundo/ultimas_noticias/index.xml");
+			URL url=new URL("http://es.engadget.com/rss.xml");
+			//URL url = new URL("http://www.bbc.co.uk/mundo/ultimas_noticias/index.xml");
 			//URL url=new URL(uri);
 			//String ficheroSalida=url.getFile();//obtener el nombre del fichero para luego 
 			//crear otro que se llame igual donde guardaremos nuestro código
@@ -37,6 +37,8 @@ public class XMLFeedsParser {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			System.out.println(url.toString());
 			Document doc = db.parse(new InputSource(url.openStream()));
+			
+			System.out.println("openStream parseado");
 			
 			Element root = doc.getDocumentElement();//obtener el elemento raiz
 			root.normalize();

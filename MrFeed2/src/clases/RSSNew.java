@@ -1,9 +1,10 @@
 package clases;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RSSNew {
+public class RSSNew implements Serializable {
 	private String tit;
 	private String des;
 	private String lnk;

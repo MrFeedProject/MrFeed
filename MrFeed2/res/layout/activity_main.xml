@@ -3,9 +3,19 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+<<<<<<< HEAD
     >
 <ListView 
 	 	android:id="@+id/listView1"
 	 	android:layout_width="fill_parent"
 	 	android:layout_height="wrap_content"/>
+=======
+    android:orientation="vertical" >
+    
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+>>>>>>> 495d40328ba8e1896a492caf554a9a23ff0cd10d
 </LinearLayout>

@@ -119,10 +119,6 @@ public class RSSNew {
 		 */
 		return dat;
 	}
-	
-	public String toString(){
-		return this.des;
-	}
 
 	public String toHTML() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dia: d 'mes: ' MMMM ' año: ' yyyy");

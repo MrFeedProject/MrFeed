@@ -1,5 +1,10 @@
 package com.example.mrfeed2;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,22 +15,29 @@ import clases.XMLFeedsParser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
 	private ArrayList<RSSNew> noticias;
+	ProgressDialog pd; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -99,8 +111,9 @@ public class MainActivity extends Activity {
 			if (feed != null) {
 				TextView title = (TextView) v.findViewById(R.id.title);
 				TextView description = (TextView) v.findViewById(R.id.description);
-				TextView link = (TextView) v.findViewById(R.id.link);
-				TextView author = (TextView) v.findViewById(R.id.author);
+				ImageView image = (ImageView) v.findViewById(R.id.image);
+//				TextView link = (TextView) v.findViewById(R.id.link);
+//				TextView author = (TextView) v.findViewById(R.id.author);
 
 				if (title != null) {
 					title.setText(feed.getTitle());
@@ -110,17 +123,93 @@ public class MainActivity extends Activity {
 					description.setText(feed.getDescription());
 				}
 				
-				if (link != null) {
-					link.setText(feed.getLink());
+				if (image != null) {
+					if(feed.getImg()!=null){
+						//loadImageFromURL(feed.getImg().getUrl(), image);
+						 new DownloadImageTask(image).execute(feed.getImg().getUrl());
+					}
+					//image.setImageURI(Uri.parse(feed.getImg().getUrl()));
+					//System.out.println(Uri.parse(feed.getImg().getUrl()));
+					/*URL newurl;
+					try {
+						if(feed.getImg()!=null){
+							newurl = new URL(feed.getImg().getUrl());
+							image.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()));
+						}
+						
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} */
+					
 				}
 				
-				if (author != null) {
-					author.setText(feed.getAuthor());
-				}
+//				if (link != null) {
+//					link.setText(feed.getLink());
+//				}
+//				
+//				if (author != null) {
+//					author.setText(feed.getAuthor());
+//				}
 			}
 			return v;
 		}
+		
+		public void loadImageFromURL(String fileUrl, ImageView iv){
+			try {
+				URL myFileUrl = new URL (fileUrl);
+			    HttpURLConnection conn =(HttpURLConnection) myFileUrl.openConnection();
+			    conn.setDoInput(true);
+			    conn.connect();
+			 
+			    InputStream is = conn.getInputStream();
+			    iv.setImageBitmap(BitmapFactory.decodeStream(is));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
+	
+	class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+	    ImageView bmImage;
+
+	    public DownloadImageTask(ImageView bmImage) {
+	        this.bmImage = bmImage;
+	    }
+
+	    @Override
+	    protected void onPreExecute() {
+	        // TODO Auto-generated method stub
+	        super.onPreExecute();
+	        pd.show();
+	    }
+
+	    protected Bitmap doInBackground(String... urls) {
+	        String urldisplay = urls[0];
+	        Bitmap mIcon11 = null;
+	        try {
+	          InputStream in = new java.net.URL(urldisplay).openStream();
+	          mIcon11 = BitmapFactory.decodeStream(in);
+	        } catch (Exception e) {
+	            Log.e("Error", e.getMessage());
+	            e.printStackTrace();
+	        }
+	        return mIcon11;
+	    }
+
+	    @Override 
+	    protected void onPostExecute(Bitmap result) {
+	        super.onPostExecute(result);
+	        pd.dismiss();
+	        bmImage.setImageBitmap(result);
+	    }
+	  }
 	
 	private class AsyncLoadXMLFeed extends AsyncTask<Void, Void, Void> {
 
@@ -142,7 +231,7 @@ public class MainActivity extends Activity {
 			//bundle.putSerializable("feed", unFeed);
 
 			ListView listView = (ListView) findViewById(R.id.listView1);
-			listView.setAdapter(new UserItemAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, noticias));
+			listView.setAdapter(new UserItemAdapter(getApplicationContext(), /*android.R.layout.simple_list_item_1*/R.layout.listitem, noticias));
 			
 //			// launch List activity
 //			Intent intent = new Intent(MainActivity.this, MainActivity.class);

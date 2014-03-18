@@ -8,10 +8,12 @@
 	android:paddingLeft="5px">
 	
 	<ImageView
-        android:id="@+id/avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginRight="6dip" />
+	    android:id="@+id/image"
+	    android:layout_width="wrap_content"
+	    android:layout_height="fill_parent"
+	    android:layout_marginRight="6dip"
+	    android:src="@drawable/ic_launcher" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dip"
@@ -30,16 +32,6 @@
 		    android:layout_height="wrap_content"
 		    android:layout_marginLeft="10px"
 		    android:textColor="#0099CC" />
-
-		<TextView
-		    android:id="@+id/link"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content" />
-
-		<TextView
-		    android:id="@+id/author"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content" />
 
 	</LinearLayout>
 </LinearLayout>

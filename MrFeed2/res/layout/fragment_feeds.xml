@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools" 
+   android:id="@+id/rlFeeds"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:paddingBottom="@dimen/activity_vertical_margin"
+   android:paddingLeft="@dimen/activity_horizontal_margin"
+   android:paddingRight="@dimen/activity_horizontal_margin"
+   android:paddingTop="@dimen/activity_vertical_margin" >
+
+     <TextView
+        android:id="@+id/feedsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp" />
+    
+    <View
+        android:id="@+id/titleSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/feedsTitle"
+        android:background="#FF8000" />
+    <Button 
+        android:id="@+id/addFeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/titleSeparator"
+        android:textSize="14dp"
+        android:layout_alignParentRight="true" />
+
+    
+    <ListView
+        android:id="@+id/feedList"
+        android:layout_width="fill_parent"
+        android:layout_height="180sp"
+        android:layout_below="@id/titleSeparator"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp" />
+   
+    
+    <TextView
+        android:id="@+id/OrgTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/feedList"
+        android:textSize="20dp"
+        android:text="Organizar por:" />
+    
+    <View
+        android:id="@+id/titleOrgSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/OrgTitle"
+        android:background="#FF8000" />
+
+    <RadioGroup 
+        android:id="@+id/radioOrganizarPor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleOrgSeparator" >
+        
+        <RadioButton
+            android:id="@+id/ffeeds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_section1"
+            android:checked="true" />
+            
+ 
+        <RadioButton
+            android:id="@+id/fcategorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/categs"
+            android:checked="true" />
+       </RadioGroup>
+    
+        <TextView
+        android:id="@+id/categoriesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioOrganizarPor"
+        android:textSize="20dp" />
+
+    <View
+        android:id="@+id/categoriesSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/categoriesTitle"
+        android:background="#FF8000" />
+
+    <ListView
+        android:id="@+id/categoryList"
+        android:layout_width="fill_parent"
+        android:layout_height="110sp"
+        android:layout_below="@id/categoriesSeparator"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp" />
+</RelativeLayout>

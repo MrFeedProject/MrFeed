@@ -1,12 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MrFeed2</string>
+    <string name="app_name">MrFeed</string>
     <string name="action_settings">Settings</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="title_activity_new">NewActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_section1">Feeds</string>
+    <string name="title_section2">Favoritos</string>
+    <string name="title_section3">Acerca de</string>
+    <string name="title_activity_new">Noticia</string>
+    <string name="title_activity_settings">Configuración</string>
+    <string name="categs">Categorias</string>
+    <string name="title_activity_splash">MrFeed</string>
+    <string name="linkUR"><a href="http://www.unirioja.es/">Universidad de la Rioja - http://www.unirioja.es</a></string>
+	<string-array name="vistas">
+        <item>Lista</item>
+        <item>Grid</item>
+    </string-array>
+    <string-array name="categorias">
+        <item>Tecnología</item>
+        <item>Entretenimiento</item>
+        <item>Deportes</item>
+        <item>Actualidad</item>
+        <item>Cultura</item>
+        <item>Nacional</item>
+        <item>Internacional</item>
+        <item>Ciencia</item>
+        <item>Geek</item>
+        <item>Corazón</item>
+        <item>Otros</item>
+    </string-array>
 
 </resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/labelSpinner"
+        android:layout_alignLeft="@+id/labelSpinner"
+        android:layout_marginBottom="30dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/labelSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="87dp"
+        android:text="Categoría: " />
+
+    <Spinner
+        android:id="@+id/categoria"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/input"
+        android:entries="@array/categorias" />
+
+    <TextView
+        android:id="@+id/labelInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/input"
+        android:layout_alignParentLeft="true"
+        android:text="URL del feed: " />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/labelNInput"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/labelNInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Nombre del feed: " />
+
+</RelativeLayout>

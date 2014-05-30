@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrlView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:layout_marginBottom="20dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/RSSNewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/RSSNewAuthorDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RSSNewTitle" 
+            android:text="Author" />
+
+        <WebView
+            android:id="@+id/RSSNewContent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RSSNewAuthorDate"
+            android:layout_marginTop="5dp"
+            android:text="Content"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
+
+</ScrollView>
